@@ -16,6 +16,15 @@ from soccerplots.radar_chart import Radar
 
 from mplsoccer import Pitch, VerticalPitch, PyPizza
 
+import random
+
+from reportlab.lib.pagesizes import landscape, letter
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, BaseDocTemplate, Image, PageBreak, Spacer, Frame, PageTemplate
+from reportlab.lib.units import inch
+from PIL import Image as PILImage
+import io
+
 import math
 
 from scipy.stats import stats
@@ -1097,6 +1106,12 @@ with st.form("select-buttons"):
     number_Adjust = st.sidebar.selectbox(
     'Choose value to adjust the player scores', [1, 0.95, 0.93, 0.90, 0.88, 0.82, 0.85, 0.80, 0.78, 0.75])
 
+    page_width_user = st.sidebar.selectbox(
+    'Choose width value', [random.randint(10, 30)])
+
+    page_height_user = st.sidebar.selectbox(
+    'Choose height value', [random.randint(10, 30)])
+
     #wyscout = wyscout[(wyscout['Season'] == Season)].reset_index(drop=True)
 
     cols = st.sidebar.selectbox('Choose the template for the radars',
@@ -1160,14 +1175,6 @@ if btn6:
     figOverTime = score_OverTime(wyscout, options_Team, options_Player, league_Context, number_Adjust)
 
     st.pyplot(figOverTime)
-
-
-from reportlab.lib.pagesizes import landscape, letter
-from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, BaseDocTemplate, Image, PageBreak, Spacer, Frame, PageTemplate
-from reportlab.lib.units import inch
-from PIL import Image as PILImage
-import io
 
 def sort_images(files):
     order = ['Report', 'Bars', 'Radar', 'Percentile', 'OverTime']
@@ -1249,7 +1256,7 @@ if uploaded_files:
 # Step 2: Create PDF Report Button
 if st.button('Create PDF Report'):
     if st.session_state['uploaded_files']:
-        createReportPDF(options_Player, league_Context, st.session_state['uploaded_files'], page_width=20, page_height=20)
+        createReportPDF(options_Player, league_Context, st.session_state['uploaded_files'], page_width_user, page_height_user)
         st.session_state['pdf_generated'] = True
 
 # Step 3: Provide download button if PDF has been generated
