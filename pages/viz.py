@@ -16,8 +16,6 @@ from soccerplots.radar_chart import Radar
 
 from mplsoccer import Pitch, VerticalPitch, PyPizza
 
-import random
-
 from reportlab.lib.pagesizes import landscape, letter
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, BaseDocTemplate, Image, PageBreak, Spacer, Frame, PageTemplate
@@ -1107,10 +1105,10 @@ with st.form("select-buttons"):
     'Choose value to adjust the player scores', [1, 0.95, 0.93, 0.90, 0.88, 0.82, 0.85, 0.80, 0.78, 0.75])
 
     page_width_user = st.sidebar.selectbox(
-    'Choose width value', [random.randint(10, 30)])
+    'Choose width value', list(range(10, 31)))
 
     page_height_user = st.sidebar.selectbox(
-    'Choose height value', [random.randint(10, 30)])
+    'Choose height value', list(range(10, 31)))
 
     #wyscout = wyscout[(wyscout['Season'] == Season)].reset_index(drop=True)
 
