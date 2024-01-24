@@ -243,11 +243,11 @@ def barsAbility(df, playerName, team, season, league, league_Compare, season_Com
     #fig = add_image(image='C:/Users/menes/Documents/Data Hub/Images/Country/' + country + '.png', fig=fig, left=0.08, bottom=0.775, width=0.1, height=0.07)
 
     # Ensure the 'Images' folder exists
-    if not os.path.exists(f'Images/Recruitment/{playerName}'):
-        os.makedirs(f'Images/Recruitment/{playerName}')
+    if not os.path.exists(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}'):
+        os.makedirs(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}')
 
     # Save the figure
-    plt.savefig(f'Images/Recruitment/{playerName}/{playerName} bars.png')
+    plt.savefig(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} bars.png')
 
     return plt.show()
 
@@ -508,11 +508,11 @@ def radar_chart(df, player, cols, team, season, league, leagueCompare, season_Co
 
         fig.set_facecolor('#181818')
         # Ensure the 'Images' folder exists
-        if not os.path.exists(f'Images/Recruitment/{player}'):
-            os.makedirs(f'Images/Recruitment/{player}')
+        if not os.path.exists(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{player}'):
+            os.makedirs(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{player}')
 
         # Save the figure
-        plt.savefig(f'Images/Recruitment/{player}/{player} Radar.png')
+        plt.savefig(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{player}/{player} Radar.png')
 
     else:
         radar_chart_compare(df, player, player2, cols, team, season, league, league_Compare_Context, Season_Compare_Context)
@@ -760,11 +760,11 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
     ])
 
     # Ensure the 'Images' folder exists
-    if not os.path.exists(f'Images/Recruitment/{playerName}'):
-        os.makedirs(f'Images/Recruitment/{playerName}')
+    if not os.path.exists(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}'):
+        os.makedirs(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}')
 
     # Save the figure
-    plt.savefig(f'Images/Recruitment/{playerName}/{playerName} Percentile.png')
+    plt.savefig(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} Percentile.png')
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
 def score_OverTime(df, club, playerName, league, number):
@@ -825,11 +825,11 @@ def score_OverTime(df, club, playerName, league, number):
     fig_Club = add_image(image=f'Images/Clubs/Brasileirao/Ceará.png', fig=fig, left=0.79, bottom=0.95, width=0.09, height=0.09)
 
     # Ensure the 'Images' folder exists
-    if not os.path.exists(f'Images/Recruitment/{playerName}'):
-        os.makedirs(f'Images/Recruitment/{playerName}')
+    if not os.path.exists(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}'):
+        os.makedirs(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}')
 
     # Save the figure
-    plt.savefig(f'Images/Recruitment/{playerName}/{playerName} OverTime.png')
+    plt.savefig(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} OverTime.png')
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
 def plotMaps(df, playerName, mode=None):
