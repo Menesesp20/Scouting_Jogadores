@@ -36,7 +36,7 @@ def load_data(filePath):
     return pd.read_parquet(filePath)
 
 wyscout = load_data('./Data/data.parquet')
-wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
+#wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
 wyscout['Age']  = wyscout['Age'].astype(int)
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)

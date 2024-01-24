@@ -50,7 +50,7 @@ st.sidebar.header('Scouting Hub')
 @st.cache_data(ttl=86400)
 def load_data(filePath):
     wyscout = pd.read_parquet(filePath)
-    wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
+    #wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
     wyscout['Age']  = wyscout['Age'].astype(int)
     
     return wyscout

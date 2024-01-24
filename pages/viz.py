@@ -44,7 +44,7 @@ st.sidebar.header('Player Recruitment')
 @st.cache_data(ttl=86400)
 def load_data(filePath):
     data = pd.read_parquet(filePath)
-    data.drop(['Unnamed: 0'], axis=1, inplace=True)
+    #data.drop(['Unnamed: 0'], axis=1, inplace=True)
     data['Age']  = data['Age'].astype(int)
     # Splitting the 'Comp' column to extract the league name
     data['League'] = data['Comp'].str.split(' \d{4}').str[0]
@@ -57,10 +57,8 @@ data['Age']  = data['Age'].astype(int)
 @st.cache_data(ttl=86400)
 def load_wyscout(filePath):
     wyscout = pd.read_parquet(filePath)
-    wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
+    #wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
     wyscout['Age']  = wyscout['Age'].astype(int)
-    # Splitting the 'Comp' column to extract the league name
-    wyscout['League'] = wyscout['Comp'].str.split(' \d{4}').str[0]
 
     return wyscout
 
