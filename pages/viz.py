@@ -1172,11 +1172,11 @@ if btn8:
     def createReportPDF(playerName, leagueName, page_width=20, page_height=15):
 
         # Prepare your image files
-        image_files = [f'Images/Recruitment/{playerName}/{playerName} Report.png',
-                       f'Images/Recruitment/{playerName}/{playerName} Bars.png',
-                       f'Images/Recruitment/{playerName}/{playerName} Percentile.png',
-                       f'Images/Recruitment/{playerName}/{playerName} Radar.png',
-                       f'Images/Recruitment/{playerName}/{playerName} OverTime.png',]
+        image_files = [f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} Report.png',
+                       f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} Bars.png',
+                       f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} Percentile.png',
+                       f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} Radar.png',
+                       f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} OverTime.png',]
 
         def inch_to_px(value):
             return value * 72
@@ -1197,9 +1197,9 @@ if btn8:
         def create_pdf_report(image_files, playerName, leagueName, page_width=20, page_height=15.7):
             # Create a SimpleDocTemplate with the desired page size
                 # Ensure the 'Images' folder exists
-            if not os.path.exists(f'Reports'):
-                os.makedirs(f'Reports')
-            doc = BaseDocTemplate(f'Reports/{playerName} Report.png', pagesize=landscape((inch_to_px(page_width), inch_to_px(page_height))), showBoundary=0, allowSplitting=0)
+            if not os.path.exists(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Reports'):
+                os.makedirs(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Reports')
+            doc = BaseDocTemplate(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Reports/{playerName} Report.png', pagesize=landscape((inch_to_px(page_width), inch_to_px(page_height))), showBoundary=0, allowSplitting=0)
 
             # Create a custom frame that fills the page, with a small margin on all sides
             margin = 20  # Margin in pixels
@@ -1242,7 +1242,7 @@ if btn8:
         return create_pdf_report(image_files, playerName, leagueName, page_width=page_width, page_height=page_height)
 
     pdf = createReportPDF(options_Player, f'{options_Team} {Season}', page_width=16.5, page_height=16.5)
-    pdf_path = f'Reports/{options_Player} Report.png'
+    pdf_path = f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Reports/{options_Player} Report.png'
 
     # Check if the PDF file was successfully created
     if os.path.exists(pdf_path):
