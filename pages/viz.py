@@ -241,11 +241,11 @@ def barsAbility(df, playerName, team, season, league, league_Compare, season_Com
     #fig = add_image(image='C:/Users/menes/Documents/Data Hub/Images/Country/' + country + '.png', fig=fig, left=0.08, bottom=0.775, width=0.1, height=0.07)
 
     # Ensure the 'Images' folder exists
-    if not os.path.exists(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}'):
-        os.makedirs(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}')
+    if not os.path.exists(f'Images/Recruitment/{playerName}'):
+        os.makedirs(f'Images/Recruitment/{playerName}')
 
     # Save the figure
-    plt.savefig(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} bars.png')
+    plt.savefig(f'Images/Recruitment/{playerName}/{playerName} Percentile.png')
 
     return plt.show()
 
@@ -506,11 +506,11 @@ def radar_chart(df, player, cols, team, season, league, leagueCompare, season_Co
 
         fig.set_facecolor('#181818')
         # Ensure the 'Images' folder exists
-        if not os.path.exists(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{player}'):
-            os.makedirs(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{player}')
+        if not os.path.exists(f'Images/Recruitment/{player}'):
+            os.makedirs(f'Images/Recruitment/{player}')
 
         # Save the figure
-        plt.savefig(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{player}/{player} Radar.png')
+        plt.savefig(f'Images/Recruitment/{player}/{player} Percentile.png')
 
     else:
         radar_chart_compare(df, player, player2, cols, team, season, league, league_Compare_Context, Season_Compare_Context)
@@ -758,11 +758,11 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
     ])
 
     # Ensure the 'Images' folder exists
-    if not os.path.exists(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}'):
-        os.makedirs(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}')
+    if not os.path.exists(f'Images/Recruitment/{playerName}'):
+        os.makedirs(f'Images/Recruitment/{playerName}')
 
     # Save the figure
-    plt.savefig(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} Percentile.png')
+    plt.savefig(f'Images/Recruitment/{playerName}/{playerName} Percentile.png')
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
 def score_OverTime(df, club, playerName, league, number):
@@ -823,11 +823,11 @@ def score_OverTime(df, club, playerName, league, number):
     fig_Club = add_image(image=f'Images/Clubs/Brasileirao/Ceará.png', fig=fig, left=0.79, bottom=0.95, width=0.09, height=0.09)
 
     # Ensure the 'Images' folder exists
-    if not os.path.exists(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}'):
-        os.makedirs(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}')
+    if not os.path.exists(f'Images/Recruitment/{playerName}'):
+        os.makedirs(f'Images/Recruitment/{playerName}')
 
     # Save the figure
-    plt.savefig(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} OverTime.png')
+    plt.savefig(f'Images/Recruitment/{playerName}/{playerName} OverTime.png')
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
 def plotMaps(df, playerName, mode=None):
@@ -1161,101 +1161,109 @@ if btn6:
 
     st.pyplot(figOverTime)
 
-if btn8:
 
-    from reportlab.lib.pagesizes import landscape, letter
-    from reportlab.lib import colors
-    from reportlab.platypus import SimpleDocTemplate, BaseDocTemplate, Image, PageBreak, Spacer, Frame, PageTemplate
-    from reportlab.lib.units import inch
-    from PIL import Image as PILImage
+from reportlab.lib.pagesizes import landscape, letter
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, BaseDocTemplate, Image, PageBreak, Spacer, Frame, PageTemplate
+from reportlab.lib.units import inch
+from PIL import Image as PILImage
+import io
 
-    def createReportPDF(playerName, leagueName, page_width=20, page_height=15):
+def sort_images(files):
+    order = ['Report', 'Bars', 'Radar', 'Percentile', 'OverTime']
+    files.sort(key=lambda x: next((i for i, keyword in enumerate(order) if keyword in x), len(order)))
+    return files
 
-        # Prepare your image files
-        image_files = [f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} Report.png',
-                       f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} Bars.png',
-                       f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} Percentile.png',
-                       f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} Radar.png',
-                       f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} OverTime.png',]
+def createReportPDF(playerName, leagueName, uploaded_files, page_width=20, page_height=15):
+    def inch_to_px(value):
+        return value * 72
 
-        def inch_to_px(value):
-            return value * 72
-
-        def resize_image(image_path, max_width, max_height):
-            img = PILImage.open(image_path)
+    def resize_image(image_path, max_width, max_height):
+        with open(image_path, "rb") as img_file:
+            img = PILImage.open(img_file)
             img.thumbnail((max_width, max_height))
             return img
 
-        class BackgroundColorPageTemplate(PageTemplate):
-            def beforeDrawPage(self, canvas, doc):
-                canvas.saveState()
-                background_color = colors.HexColor("#181818")
-                canvas.setFillColor(background_color)
-                canvas.rect(0, 0, inch_to_px(page_width), inch_to_px(page_height), fill=True, stroke=False)
-                canvas.restoreState()
+    def create_pdf_report(image_paths, playerName, leagueName, page_width, page_height):
+        local_reports_dir = 'Reports'
+        if not os.path.exists(local_reports_dir):
+            os.makedirs(local_reports_dir)
 
-        def create_pdf_report(image_files, playerName, leagueName, page_width=20, page_height=15.7):
-            # Create a SimpleDocTemplate with the desired page size
-                # Ensure the 'Images' folder exists
-            if not os.path.exists(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Reports'):
-                os.makedirs(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Reports')
-            doc = BaseDocTemplate(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Reports/{playerName} Report.png', pagesize=landscape((inch_to_px(page_width), inch_to_px(page_height))), showBoundary=0, allowSplitting=0)
+        pdf_path = os.path.join(local_reports_dir, f'{playerName} Report.pdf')
+        doc = BaseDocTemplate(pdf_path, pagesize=landscape((inch_to_px(page_width), inch_to_px(page_height))), showBoundary=0)
 
-            # Create a custom frame that fills the page, with a small margin on all sides
-            margin = 20  # Margin in pixels
-            frame_width = inch_to_px(page_width) - 2 * margin
-            frame_height = inch_to_px(page_height) - 2 * margin
-            frame = Frame(margin, margin, frame_width, frame_height)
+        margin = 20
+        frame_width = inch_to_px(page_width) - 2 * margin
+        frame_height = inch_to_px(page_height) - 2 * margin
+        frame = Frame(margin, margin, frame_width, frame_height)
 
-            # Create a custom PageTemplate with the custom frame
-            page_template = BackgroundColorPageTemplate(frames=frame)
+        def draw_background(canvas, doc):
+            canvas.saveState()
+            canvas.setFillColor(colors.HexColor("#181818"))
+            canvas.rect(0, 0, inch_to_px(page_width), inch_to_px(page_height), fill=True, stroke=False)
+            canvas.restoreState()
 
-            # Set the custom PageTemplate as the default template
-            doc.addPageTemplates([page_template])
+        page_template = PageTemplate(frames=frame, onPage=draw_background)
+        doc.addPageTemplates([page_template])
 
-            # Create an empty list to hold the report elements (images)
-            elements = []
+        elements = []
 
-            # Resize and add images to the elements list, centered on each page
-            for idx, img_file in enumerate(image_files):
-                img = resize_image(img_file, frame_width, frame_height)
-                img_path = f'{img_file}'
-                img.save(img_path)
+        sorted_image_paths = sort_images(image_paths)
 
-                # Calculate centered position
-                img_width, img_height = img.size
-                centered_y = (frame_height - img_height) / 2
+        for img_path in sorted_image_paths:
+            img = resize_image(img_path, frame_width, frame_height)
+            img_width, img_height = img.size
+            centered_y = (frame_height - img_height) / 2
+            if elements:  # Add a spacer for all but the first image
+                elements.append(Spacer(1, centered_y))
+            elements.append(Image(img_path, width=img_width, height=img_height))
+            elements.append(PageBreak())
 
-                # Add a Spacer to vertically center the image, only if it's not the first image
-                if idx > 0:
-                    elements.append(Spacer(1, centered_y))
+        doc.build(elements)
 
-                # Add image to the elements list
-                elements.append(Image(img_path, width=img_width, height=img_height))
+    create_pdf_report(uploaded_files, playerName, leagueName, page_width, page_height)
 
-                # Add a PageBreak to separate each image
-                elements.append(PageBreak())
+# Initialize session state variables if not already done
+if 'uploaded_files' not in st.session_state:
+    st.session_state['uploaded_files'] = []
+if 'pdf_generated' not in st.session_state:
+    st.session_state['pdf_generated'] = False
 
-            # Build the PDF report with the elements
-            doc.build(elements)
-    
-        return create_pdf_report(image_files, playerName, leagueName, page_width=page_width, page_height=page_height)
+# Step 1: Implement File Upload
+uploaded_files = st.file_uploader("Upload Images for the Report", accept_multiple_files=True, type=['png', 'jpg', 'jpeg'])
 
-    pdf = createReportPDF(options_Player, f'{options_Team} {Season}', page_width=16.5, page_height=16.5)
-    pdf_path = f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Reports/{options_Player} Report.png'
+# Process uploaded files
+if uploaded_files:
+    temp_dir = "temp_images"
+    os.makedirs(temp_dir, exist_ok=True)
+    st.session_state['uploaded_files'] = []
 
-    # Check if the PDF file was successfully created
-    if os.path.exists(pdf_path):
-        # Provide the file for download
+    for uploaded_file in uploaded_files:
+        if uploaded_file is not None:
+            bytes_data = uploaded_file.read()
+            image_path = os.path.join(temp_dir, uploaded_file.name)
+            with open(image_path, "wb") as f:
+                f.write(bytes_data)
+            st.session_state['uploaded_files'].append(image_path)
+
+# Step 2: Create PDF Report Button
+if st.button('Create PDF Report'):
+    if st.session_state['uploaded_files']:
+        createReportPDF(options_Player, league_Context, st.session_state['uploaded_files'], page_width=20, page_height=20)
+        st.session_state['pdf_generated'] = True
+
+# Step 3: Provide download button if PDF has been generated
+if st.session_state['pdf_generated']:
+    pdf_path = f'Reports/{options_Player} Report.pdf'
+    try:
         with open(pdf_path, "rb") as file:
-            btn = st.download_button(
+            st.download_button(
                 label="Download Report",
                 data=file,
                 file_name=f"{options_Player}_Report.pdf",
                 mime="application/octet-stream"
             )
-        if btn:
-            # Display the message
-            st.success('Your report has been downloaded. Please check your desktop.')
-    else:
+        st.success('Your report has been generated. Click the button above to download.')
+    except IOError:
         st.error('An error occurred while generating the report.')
+

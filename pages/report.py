@@ -36,7 +36,7 @@ def load_data(filePath):
     return pd.read_parquet(filePath)
 
 wyscout = load_data('./Data/data.parquet')
-#wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
+wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
 wyscout['Age']  = wyscout['Age'].astype(int)
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
@@ -673,14 +673,14 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
                 fig = add_image(image='./Images/Country/' + country + '.png', fig=fig, left=0.185, bottom=1.2, width=0.07, height=0.06)
 
                 # Ensure the 'Images' folder exists
-                if not os.path.exists(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}'):
-                        os.makedirs(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}')
+                if not os.path.exists(f'Images/Recruitment/{playerName}'):
+                        os.makedirs(f'Images/Recruitment/{playerName}')
 
                 # Adjust the layout
                 plt.tight_layout()
 
                 # Save the figure
-                plt.savefig(f'https://github.com/Menesesp20/Scouting_Jogadores/blob/main/Images/Recruitment/{playerName}/{playerName} Report.png', bbox_inches='tight', dpi=300)
+                plt.savefig(f'Images/Recruitment/{playerName}/{playerName} Report.png', bbox_inches='tight', dpi=300)
 
                 return plt.show()
 
