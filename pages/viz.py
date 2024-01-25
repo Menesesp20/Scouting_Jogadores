@@ -435,7 +435,7 @@ def radar_chart_compare(df, player, player2, cols, team, season, league, league_
 
     #Criação do radar chart
     fig, ax = plt.subplots(figsize=(18,15), dpi=500)
-    radar = Radar(background_color="#181818", patch_color="#E8E8E8", range_color="#E8E8E8", label_color="#E8E8E8", label_fontsize=11, range_fontsize=11)
+    radar = Radar(background_color="#E8E8E8", patch_color="#181818", range_color="#E8E8E8", label_color="#E8E8E8", label_fontsize=11, range_fontsize=11)
     fig, ax = radar.plot_radar(ranges=ranges, 
                                 params=cols, 
                                 values=values, 
@@ -502,7 +502,7 @@ def radar_chart(df, player, cols, team, season, league, leagueCompare, season_Co
 
         #Criação do radar chart
         fig, ax = plt.subplots(figsize=(12,10))
-        radar = Radar(background_color="#181818", patch_color="#E8E8E8", range_color="#E8E8E8", label_color="#E8E8E8", label_fontsize=9, range_fontsize=10)
+        radar = Radar(background_color="#E8E8E8", patch_color="#181818", range_color="#E8E8E8", label_color="#E8E8E8", label_fontsize=11, range_fontsize=11)
         fig, ax = radar.plot_radar(ranges=ranges, 
                                     params=cols, 
                                     values=values, 
@@ -1131,7 +1131,7 @@ with st.form("select-buttons"):
     elif cols == 'Forward':
         cols = Forward
 
-    col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
+    col1, col2, col3, col4, col5, col6, col7 = st.columns(8)
     
     btn1 = col1.form_submit_button(label='Bars')
     btn2 = col2.form_submit_button(label='Scatters')
@@ -1140,7 +1140,6 @@ with st.form("select-buttons"):
     btn5 = col5.form_submit_button(label='Percentile')
     btn6 = col6.form_submit_button(label='Progress Over Time')
     btn7 = col7.form_submit_button(label='Pitch')
-    btn8 = col8.form_submit_button(label='Report')
 
 #col1, col2, col3, col4, col5, col6 = st.columns(6)
 
