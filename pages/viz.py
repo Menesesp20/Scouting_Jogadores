@@ -1131,7 +1131,7 @@ with st.form("select-buttons"):
     elif cols == 'Forward':
         cols = Forward
 
-    col1, col2, col3, col4, col5, col6, col7 = st.columns(8)
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
     
     btn1 = col1.form_submit_button(label='Bars')
     btn2 = col2.form_submit_button(label='Scatters')
@@ -1139,7 +1139,6 @@ with st.form("select-buttons"):
     btn4 = col4.form_submit_button(label='Radar Compare')
     btn5 = col5.form_submit_button(label='Percentile')
     btn6 = col6.form_submit_button(label='Progress Over Time')
-    btn7 = col7.form_submit_button(label='Pitch')
 
 #col1, col2, col3, col4, col5, col6 = st.columns(6)
 
