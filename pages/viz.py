@@ -55,7 +55,7 @@ def load_data(filePath):
     data['Age']  = data['Age'].astype(int)
     # Splitting the 'Comp' column to extract the league name
     data['League'] = data['Comp'].str.split(' \d{4}').str[0]
-    data['Team'] = data['Team within selected timeframe']
+    #data['Team'] = data['Team within selected timeframe']
 
     return data
 
@@ -66,7 +66,7 @@ def load_wyscout(filePath):
     wyscout = pd.read_parquet(filePath)
     #wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
     wyscout['Age']  = wyscout['Age'].astype(int)
-    #wyscout['Team'] = wyscout['Team within selected timeframe']
+    wyscout['Team'] = wyscout['Team within selected timeframe']
 
     return wyscout
 
