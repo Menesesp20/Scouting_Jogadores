@@ -800,7 +800,7 @@ def score_OverTime(df, club, playerName, league, number):
     ].sort_values('Season', ascending=True).reset_index(drop=True)
 
     team = player['Team'].unique()[0]
-    scores = player['Percentile'].values
+    scores = player['AdjustedPercentile'].values
     seasons = player['Season'].unique()
     minutes_played = player['Minutes played'].values
 
