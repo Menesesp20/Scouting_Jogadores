@@ -33,11 +33,15 @@ st.sidebar.header('Data Report')
 
 @st.cache_data(ttl=86400)
 def load_data(filePath):
-    return pd.read_parquet(filePath)
+    wyscout = pd.read_parquet(filePath)
+    #wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
+    wyscout['Age']  = wyscout['Age'].astype(int)
+    wyscout['Team'] = wyscout['Team within selected timeframe']
+
+    return wyscout
 
 wyscout = load_data('./Data/data.parquet')
-wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
-wyscout['Age']  = wyscout['Age'].astype(int)
+
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
 def traditionalReport(data, league, playerName, team, season, score_column, number, mode=None):
