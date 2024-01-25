@@ -49,28 +49,28 @@ st.sidebar.header('Scouting Hub')
 
 @st.cache_data(ttl=86400)
 def load_data(filePath):
-    wyscout = pd.read_parquet(filePath)
-    #wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
-    wyscout['Age']  = wyscout['Age'].astype(int)
-    wyscout['Team'] = wyscout['Team within selected timeframe']
+    data = pd.read_parquet(filePath)
+    #data.drop(['Unnamed: 0'], axis=1, inplace=True)
+    data['Age']  = data['Age'].astype(int)
+    #data['Team'] = data['Team within selected timeframe']
     
-    return wyscout
+    return data
 
-wyscout = load_data('./Data/data.parquet')
+data = load_data('./Data/data.parquet')
 
 options_Tiers = st.sidebar.multiselect(
     'Choose the tiers you want',
-    wyscout.Tier.unique(), wyscout.Tier.unique()[0])
+    data.Tier.unique(), data.Tier.unique()[0])
 
 # Common filtering criteria
-common_filterLeagues = (wyscout['Tier'].isin(options_Tiers))
+common_filterLeagues = (data['Tier'].isin(options_Tiers))
 
 if len(common_filterLeagues) == 0:
     # Add only the common filtering criteria when options_Leagues is empty
-    leagues = wyscout.Comp.unique()
+    leagues = data.Comp.unique()
 else:
     # Add the common filtering criteria and the league filter when options_Leagues is not empty
-    leagues = wyscout.loc[common_filterLeagues].Comp.unique()
+    leagues = data.loc[common_filterLeagues].Comp.unique()
 
 options_Leagues = st.sidebar.multiselect(
     'Choose the leagues you want',
@@ -78,22 +78,22 @@ options_Leagues = st.sidebar.multiselect(
 
 options_Roles = st.sidebar.multiselect(
     'Choose the roles you want',
-    wyscout.Role.unique(), wyscout.Role.unique()[0])
+    data.Role.unique(), data.Role.unique()[0])
 
 options_UnderAge = st.sidebar.selectbox(
     'Choose Age (Under)',
-    sorted(wyscout.Age.unique(), reverse = True))
+    sorted(data.Age.unique(), reverse = True))
 
 # Common filtering criteria
-common_filter = (wyscout['Tier'].isin(options_Tiers)) & \
-                (wyscout['Age'] <= options_UnderAge) & \
-                ((wyscout['Role'].isin(options_Roles)) | (wyscout['Role2'].isin(options_Roles))) 
+common_filter = (data['Tier'].isin(options_Tiers)) & \
+                (data['Age'] <= options_UnderAge) & \
+                ((data['Role'].isin(options_Roles)) | (data['Role2'].isin(options_Roles))) 
 
 if len(options_Leagues) == 0:
     # Add only the common filtering criteria when options_Leagues is empty
-    data = wyscout.loc[common_filter][['Player', 'Age', 'Market value', 'Contract expires', 'Team', 'Comp', 'Tier', 'Role', 'Role2', 'Score', 'Potential']].sort_values('Score', ascending=False).reset_index(drop=True)
+    data = data.loc[common_filter][['Player', 'Age', 'Market value', 'Contract expires', 'Team', 'Comp', 'Tier', 'Role', 'Role2', 'Score', 'Potential']].sort_values('Score', ascending=False).reset_index(drop=True)
 else:
     # Add the common filtering criteria and the league filter when options_Leagues is not empty
-    data = wyscout.loc[common_filter & (wyscout['Comp'].isin(options_Leagues))][['Player', 'Age', 'Market value', 'Contract expires', 'Team', 'Comp', 'Tier', 'Role', 'Role2', 'Score', 'Potential']].sort_values('Score', ascending=False).reset_index(drop=True)
+    data = data.loc[common_filter & (data['Comp'].isin(options_Leagues))][['Player', 'Age', 'Market value', 'Contract expires', 'Team', 'Comp', 'Tier', 'Role', 'Role2', 'Score', 'Potential']].sort_values('Score', ascending=False).reset_index(drop=True)
 
 st.dataframe(data, height=500, use_container_width=True)

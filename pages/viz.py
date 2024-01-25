@@ -66,7 +66,7 @@ def load_wyscout(filePath):
     wyscout = pd.read_parquet(filePath)
     #wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
     wyscout['Age']  = wyscout['Age'].astype(int)
-    wyscout['Team'] = wyscout['Team within selected timeframe']
+    #wyscout['Team'] = wyscout['Team within selected timeframe']
 
     return wyscout
 
