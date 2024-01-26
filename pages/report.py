@@ -42,7 +42,6 @@ def load_data(filePath):
 
 wyscout = load_data('./Data/wyscout.parquet')
 
-
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
 def traditionalReport(data, league, playerName, team, season, score_column, number, mode=None):
         ############################################################################# PLAYER'S ABILITY PERCENTILE #####################################################################################################################################################################################################################################
@@ -455,7 +454,7 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
                 #######################################################################################################################################
 
                 for x in range(len(params)):
-                        values.append(math.floor(stats.percentileofscore(df2[params[x]], player[x])))
+                        values.append(math.floor(stats.percentileofscore((df2[params[x]] * number), player[x])))
 
                 for n, i in enumerate(values):
                         if i == 100:
@@ -604,7 +603,7 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
                 df2 = data2[(data2['Comp'] == league) & (data2['Main Pos'] == mainPos) & (data2['Minutes played'] >= 800)].reset_index(drop=True)
                 print(f'\n{league}: ', df2[bestRole].values)
                 
-                rolePercentile = math.floor(stats.percentileofscore(df2[bestRole].values, roleValue))
+                rolePercentile = math.floor(stats.percentileofscore(df2[score_column].values, roleValue))
                 print('\nPercentile Jogador: ', rolePercentile)
 
                 if rolePercentile >= 90:
