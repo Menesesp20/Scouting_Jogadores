@@ -773,7 +773,7 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
     plt.savefig(f'Images/Recruitment/{playerName}/{playerName} Percentile.png')
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
-def score_OverTime(df, club, playerName, league, number):
+def score_OverTime(df, club, playerName, league, number, colPercentile):
     # plot
     fig, ax = plt.subplots(figsize=(8, 6))
 
@@ -800,7 +800,7 @@ def score_OverTime(df, club, playerName, league, number):
     ].sort_values('Season', ascending=True).reset_index(drop=True)
 
     team = player['Team'].unique()[0]
-    scores = player['AdjustedPercentile'].values
+    scores = player[colPercentile].values
     seasons = player['Season'].unique()
     minutes_played = player['Minutes played'].values
 
@@ -1111,6 +1111,17 @@ with st.form("select-buttons"):
     page_height_user = st.sidebar.selectbox(
     'Choose height value', list(range(10, 31)))
 
+    score_Adjusted = st.sidebar.selectbox(
+                    'Has the score been already adjusted?', ['No', 'Yes'])
+
+    if score_Adjusted == 'No':
+            number_Adjust = st.sidebar.selectbox(
+                    'Choose value to adjust the player scores', [1, 0.95, 0.93, 0.90, 0.88, 0.85, 0.82, 0.80, 0.78, 0.75])
+            score_column = 'Score'
+    else:
+            number_Adjust = 1
+            score_column = 'AdjustedScore'
+
     #wyscout = wyscout[(wyscout['Season'] == Season)].reset_index(drop=True)
 
     cols = st.sidebar.selectbox('Choose the template for the radars',
@@ -1169,7 +1180,7 @@ if btn5:
     st.pyplot(figPercentile)
 
 if btn6:
-    figOverTime = score_OverTime(wyscout, options_Team, options_Player, league_Context, number_Adjust)
+    figOverTime = score_OverTime(wyscout, options_Team, options_Player, league_Context, number_Adjust, score_column)
 
     st.pyplot(figOverTime)
 
