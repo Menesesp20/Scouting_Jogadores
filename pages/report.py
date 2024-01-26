@@ -356,7 +356,7 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
 
                 team = df['Team'].unique()[0]
 
-                if role != None:
+                if role_Selected != None:
                         role = role_Selected
                 else:
                         role = df['Role'].unique()[0]
