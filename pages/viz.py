@@ -1117,10 +1117,10 @@ with st.form("select-buttons"):
     if score_Adjusted == 'No':
             number_Adjust = st.sidebar.selectbox(
                     'Choose value to adjust the player scores', [1, 0.95, 0.93, 0.90, 0.88, 0.85, 0.82, 0.80, 0.78, 0.75])
-            score_column = 'Score'
+            score_column = 'Percentile'
     else:
             number_Adjust = 1
-            score_column = 'AdjustedScore'
+            score_column = 'AdjustedPercentile'
 
     #wyscout = wyscout[(wyscout['Season'] == Season)].reset_index(drop=True)
 
