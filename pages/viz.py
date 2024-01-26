@@ -805,7 +805,7 @@ def score_OverTime(df, club, playerName, league, number):
     minutes_played = player['Minutes played'].values
 
     y = scores
-    y = [value * number for value in y]
+    y = [round(value * number, 2) for value in y]
     print('Score:', y)
     x = seasons
     print('\nSeasons: ', x)
