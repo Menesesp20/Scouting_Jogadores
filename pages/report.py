@@ -43,7 +43,7 @@ def load_data(filePath):
 wyscout = load_data('./Data/wyscout.parquet')
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
-def traditionalReport(data, league, playerName, team, season, score_column, number, mode=None):
+def traditionalReport(data, league, playerName, team, season, score_column, number, role_Selected=None, mode=None):
         ############################################################################# PLAYER'S ABILITY PERCENTILE #####################################################################################################################################################################################################################################
 
         data['Habilidade Defensiva'] = data['Habilidade Defensiva'].apply(lambda x: math.floor(stats.percentileofscore(data['Habilidade Defensiva'], x)))
@@ -355,8 +355,11 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
                 age = df['Age'].unique()[0]
 
                 team = df['Team'].unique()[0]
-        
-                role = df['Role'].unique()[0]
+
+                if role != None:
+                        role = role_Selected
+                else:
+                        role = df['Role'].unique()[0]
                 print('Role em campo: ', role)
 
                 #######################################################################################################################################
@@ -602,8 +605,13 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
 
                 df2 = data2[(data2['Comp'] == league) & (data2['Main Pos'] == mainPos) & (data2['Minutes played'] >= 800)].reset_index(drop=True)
                 print(f'\n{league}: ', df2[bestRole].values)
-                
-                rolePercentile = math.floor(stats.percentileofscore(df2[score_column].values, roleValue))
+
+                if role_Selected:
+                        scores = df2[role_Selected].values
+                else:
+                        scores = df2[score_column].values
+
+                rolePercentile = math.floor(stats.percentileofscore(scores, roleValue))
                 print('\nPercentile Jogador: ', rolePercentile)
 
                 if rolePercentile >= 90:
@@ -715,6 +723,15 @@ with st.form("select-buttons"):
         Season = st.sidebar.selectbox(
         'Choose Season you want analyse', Season_List)
 
+        role_Choice = st.sidebar.selectbox(
+                        'You want to select a role?', ['No', 'Yes'])
+        
+        if role_Choice == 'Yes':
+                roles_List = st.sidebar.selectbox(
+                        'You want to select a role?', wyscout['Role'].unique())
+        else:
+                roles_List = None
+
         score_Adjusted = st.sidebar.selectbox(
                         'Has the score been already adjusted?', ['No', 'Yes'])
 
@@ -731,7 +748,7 @@ with st.form("select-buttons"):
 #col1, col2, col3, col4, col5, col6 = st.columns(6)
 
 if btn1:
-        figTraditionReport = traditionalReport(wyscout, league, options_Player, options_Team, Season, score_column, number_Adjust)
+        figTraditionReport = traditionalReport(wyscout, league, options_Player, options_Team, Season, score_column, number_Adjust,  roles_List)
 
         st.text('This is a test version to combine the data report (strengths and to improve) with the traditional scout report with tactical aspects of the player (On and Off ball momentum and physical).')
 
