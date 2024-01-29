@@ -51,12 +51,6 @@ st.sidebar.header('Player Recruitment')
 @st.cache_data(ttl=86400)
 def load_data(filePath):
     data = pd.read_parquet(filePath)
-    #data.drop(['Unnamed: 0'], axis=1, inplace=True)
-    data['Age']  = data['Age'].astype(int)
-    # Splitting the 'Comp' column to extract the league name
-    data['League'] = data['Comp'].str.split(' \d{4}').str[0]
-    #data['Team'] = data['Team within selected timeframe']
-
     return data
 
 data = load_data('./Data/data.parquet')
@@ -64,21 +58,6 @@ data = load_data('./Data/data.parquet')
 @st.cache_data(ttl=86400)
 def load_wyscout(filePath):
     wyscout = pd.read_parquet(filePath)
-    #wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
-    wyscout['Age']  = wyscout['Age'].astype(int)
-    wyscout['Team'] = wyscout['Team within selected timeframe']
-    wyscout = wyscout.rename({'PAdj Sliding tackles' : 'PAdj tackles',
-                              'Aerial duels won, %' : 'Aerial duels %',
-                              'Passes to penalty area/90' : 'P. penalty area/90',
-                              'Shots on target, %' : 'Shots target %',
-                              'Deep completed crosses/90' : 'Deep crosses/90',
-                              'Succ defensive actions/90' : 'Def. actions/90',
-                              'Touches in box/90' : 'Touches box/90',
-                              'Progressive passes/90' : 'Progressive p./90',
-                              'Passes penalty area %' : 'P. penalty area %',
-                              'Progressive runs/90' : 'Prog. runs/90',
-                              'Defensive duels %' : 'Def. duels %'}, axis=1)
-
     return wyscout
 
 wyscout = load_wyscout('./Data/wyscout.parquet')

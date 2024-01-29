@@ -50,10 +50,6 @@ st.sidebar.header('Scouting Hub')
 @st.cache_data(ttl=86400)
 def load_data(filePath):
     data = pd.read_parquet(filePath)
-    #data.drop(['Unnamed: 0'], axis=1, inplace=True)
-    data['Age']  = data['Age'].astype(int)
-    #data['Team'] = data['Team within selected timeframe']
-    
     return data
 
 data = load_data('./Data/data.parquet')
