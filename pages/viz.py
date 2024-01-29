@@ -121,8 +121,8 @@ Midfield  = ['xG/90', 'Shots', 'Prog. runs/90', 'Progressive p./90',
              'Key passes/90', 'Second assists/90', 'Assists', 'Aerial duels %',
              'PAdj Interceptions', 'Defensive duels %']
 
-offensive_Midfield = ['xG/90', 'Goals/90', 'Prog. runs/90', 'Progressive p./90',
-                      'xA/90', 'Deep completions/90', 'P. penalty area/90',
+offensive_Midfield = ['Deep completions/90', 'Goals/90', 'Prog. runs/90', 'Progressive p./90',
+                      'xA/90', 'xG/90', 'P. penalty area/90',
                       'Touches box/90', 'Key passes/90', 'Passes final 1/3 %',
                       'P. penalty area %', 'Aerial duels %',
                       'Def. actions/90', 'PAdj Interceptions', 'Defensive duels %']
