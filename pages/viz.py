@@ -76,7 +76,8 @@ def load_wyscout(filePath):
                               'Touches in box/90' : 'Touches box/90',
                               'Progressive passes/90' : 'Progressive p./90',
                               'Passes penalty area %' : 'P. penalty area %',
-                              'Progressive runs/90' : 'Prog. runs/90'}, axis=1)
+                              'Progressive runs/90' : 'Prog. runs/90',
+                              'Defensive duels %' : 'Def. duels %'}, axis=1)
 
     return wyscout
 
@@ -104,7 +105,7 @@ wyscout = load_wyscout('./Data/wyscout.parquet')
 
 center_Back = ['Offensive duels %', 'Prog. runs/90',
                'Passes %', 'Forward passes %', 'Forward passes/90', 'Progressive p./90',
-               'PAdj Interceptions', 'PAdj tackles', 'Defensive duels/90', 'Defensive duels %',
+               'PAdj Interceptions', 'PAdj tackles', 'Defensive duels/90', 'Def. duels %',
                'Aerial duels/90', 'Aerial duels %', 'Shots blocked/90']
 
 full_Back = ['Touches box/90', 'Prog. runs/90', 'Deep completions/90', 'Deep crosses/90',
@@ -114,18 +115,18 @@ full_Back = ['Touches box/90', 'Prog. runs/90', 'Deep completions/90', 'Deep cro
 defensive_Midfield  = ['xG/90', 'Shots', 'Prog. runs/90', 'Passes %',
                        'Forward passes %', 'Forward passes/90', 'Progressive p./90',
                        'Aerial duels/90', 'Aerial duels %','PAdj tackles',
-                       'PAdj Interceptions', 'Defensive duels %', 'Offensive duels %']
+                       'PAdj Interceptions', 'Def. duels %', 'Offensive duels %']
 
 Midfield  = ['xG/90', 'Shots', 'Prog. runs/90', 'Progressive p./90',
              'Passes %', 'Forward passes %', 'Forward passes/90', 'xA',
              'Key passes/90', 'Second assists/90', 'Assists', 'Aerial duels %',
-             'PAdj Interceptions', 'Defensive duels %']
+             'PAdj Interceptions', 'Def. duels %']
 
 offensive_Midfield = ['Deep completions/90', 'Goals/90', 'Prog. runs/90', 'Progressive p./90',
                       'xA/90', 'xG/90', 'P. penalty area/90',
                       'Touches box/90', 'Key passes/90', 'Passes final 1/3 %',
                       'P. penalty area %', 'Aerial duels %',
-                      'Def. actions/90', 'PAdj Interceptions', 'Defensive duels %']
+                      'Def. actions/90', 'PAdj Interceptions', 'Def. duels %']
 
 offensive_Midfield_BS = ['Aerial duels %', 'xA/90', 'Deep completions/90', 'P. penalty area/90',
                       'Key passes/90', 'Passes final 1/3 %']
@@ -487,7 +488,7 @@ def radar_chart(df, player, cols, team, season, league, leagueCompare, season_Co
 
         ranges = [(rango[col].min(), rango[col].max()) for col in cols]
 
-        color = ['#fb8c04','#fb8c04']
+        color = ['#E8E8E8','#fb8c04']
         #Atribuição dos valores aos titulos e respetivos tamanhos e cores
         title = dict(
             title_name = player,
