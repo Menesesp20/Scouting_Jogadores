@@ -72,9 +72,11 @@ def load_wyscout(filePath):
                               'Passes to penalty area/90' : 'P. penalty area/90',
                               'Shots on target, %' : 'Shots target %',
                               'Deep completed crosses/90' : 'Deep crosses/90',
-                              'Succ defensive actions/90' : 'Defensive actions/90',
+                              'Succ defensive actions/90' : 'Def. actions/90',
                               'Touches in box/90' : 'Touches box/90',
-                              'Progressive passes/90' : 'Progressive p./90',}, axis=1)
+                              'Progressive passes/90' : 'Progressive p./90',
+                              'Passes penalty area %' : 'P. penalty area %',
+                              'Progressive runs/90' : 'Prog. runs/90'}, axis=1)
 
     return wyscout
 
@@ -100,37 +102,37 @@ wyscout = load_wyscout('./Data/wyscout.parquet')
 #    return pd.read_parquet(filePath)
 #opta = load_dataOPTA('./Data/opta.parquet')
 
-center_Back = ['Offensive duels %', 'Progressive runs/90',
+center_Back = ['Offensive duels %', 'Prog. runs/90',
                'Passes %', 'Forward passes %', 'Forward passes/90', 'Progressive p./90',
                'PAdj Interceptions', 'PAdj tackles', 'Defensive duels/90', 'Defensive duels %',
                'Aerial duels/90', 'Aerial duels %', 'Shots blocked/90']
 
-full_Back = ['Touches box/90', 'Progressive runs/90', 'Deep completions/90', 'Deep crosses/90',
+full_Back = ['Touches box/90', 'Prog. runs/90', 'Deep completions/90', 'Deep crosses/90',
              'Passes %', 'Progressive p./90', 'Key passes/90', 'Crosses/90', 'Third assists/90',
              'Aerial duels %', 'PAdj Interceptions', 'Aerial duels/90', 'Offensive duels %',]
 
-defensive_Midfield  = ['xG/90', 'Shots', 'Progressive runs/90', 'Passes %',
+defensive_Midfield  = ['xG/90', 'Shots', 'Prog. runs/90', 'Passes %',
                        'Forward passes %', 'Forward passes/90', 'Progressive p./90',
                        'Aerial duels/90', 'Aerial duels %','PAdj tackles',
                        'PAdj Interceptions', 'Defensive duels %', 'Offensive duels %']
 
-Midfield  = ['xG/90', 'Shots', 'Progressive runs/90', 'Progressive p./90',
+Midfield  = ['xG/90', 'Shots', 'Prog. runs/90', 'Progressive p./90',
              'Passes %', 'Forward passes %', 'Forward passes/90', 'xA',
              'Key passes/90', 'Second assists/90', 'Assists', 'Aerial duels %',
              'PAdj Interceptions', 'Defensive duels %']
 
-offensive_Midfield = ['xG/90', 'Goals/90', 'Progressive runs/90', 'Progressive p./90',
+offensive_Midfield = ['xG/90', 'Goals/90', 'Prog. runs/90', 'Progressive p./90',
                       'xA/90', 'Deep completions/90', 'P. penalty area/90',
                       'Touches box/90', 'Key passes/90', 'Passes final 1/3 %',
-                      'Passes penalty area %', 'Aerial duels %',
-                      'Defensive actions/90', 'PAdj Interceptions', 'Defensive duels %']
+                      'P. penalty area %', 'Aerial duels %',
+                      'Def. actions/90', 'PAdj Interceptions', 'Defensive duels %']
 
 offensive_Midfield_BS = ['Aerial duels %', 'xA/90', 'Deep completions/90', 'P. penalty area/90',
                       'Key passes/90', 'Passes final 1/3 %']
 
 Winger = ['Goals', 'xG/90',
           'xA/90', 'Touches box/90', 'Dribbles/90', 'P. penalty area/90', 'Key passes/90',
-          'Progressive runs/90', 'Crosses/90', 'Deep crosses/90',
+          'Prog. runs/90', 'Crosses/90', 'Deep crosses/90',
           'Aerial duels %', 'Offensive duels/90', 'PAdj Interceptions']
 
 Forward = ['Goals', 'xG/90', 'Shots target %', 'Goal conversion, %',
