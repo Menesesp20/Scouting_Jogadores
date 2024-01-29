@@ -36,7 +36,12 @@ def load_data(filePath):
     wyscout = pd.read_parquet(filePath)
     #wyscout.drop(['Unnamed: 0'], axis=1, inplace=True)
     wyscout['Age']  = wyscout['Age'].astype(int)
-    #wyscout['Team'] = wyscout['Team within selected timeframe']
+    wyscout['Team'] = wyscout['Team within selected timeframe']
+    wyscout = wyscout.rename({'PAdj Sliding tackles' : 'PAdj tackles',
+                              'Aerial duels won, %' : 'Aerial duels %',
+                              'Passes to penalty area/90' : 'Passes penalty area/90',
+                              'Shots on target, %' : 'Shots target %',
+                              'Deep completed crosses/90' : 'Deep crosses/90'}, axis=1)
 
     return wyscout
 
