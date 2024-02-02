@@ -577,8 +577,8 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
 
     elif cols == full_Back:
         # color for the slices and text
-        slice_colors = ["#2d92df"] * 4 + ["#fb8c04"] * 5 + ["#eb04e3"] * 4
-        text_colors = ["#F2F2F2"] * 13
+        slice_colors = ["#2d92df"] * 4 + ["#fb8c04"] * 3 + ["#eb04e3"] * 3
+        text_colors = ["#F2F2F2"] * 10
 
     elif cols == center_Back:
         # color for the slices and text
