@@ -115,9 +115,8 @@ Winger = ['Goals', 'xG/90',
           'Prog. runs/90', 'Crosses/90', 'Deep crosses/90',
           'Aerial duels %', 'Offensive duels/90', 'PAdj Interceptions']
 
-Forward = ['Goals', 'xG/90', 'Shots target %', 'Goal conversion, %',
-           'xA/90', 'Touches box/90', 'Dribbles/90',
-           'Aerial duels %', 'Offensive duels/90', 'PAdj Interceptions', 'Aerial duels/90',]
+Forward = ['Goals', 'xG/90', 'Goal conversion, %',
+           'xA/90', 'Dribbles/90', 'Offensive duels/90', 'PAdj Interceptions', 'Aerial duels/90',]
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
 def bars(data, playerName, club, league, league_Compare, metrics, season, season_Compare, number, ax):
