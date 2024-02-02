@@ -557,8 +557,8 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
 
     if cols == Forward:
         # color for the slices and text
-        slice_colors = ["#2d92df"] * 3 + ["#fb8c04"] * 4 + ["#eb04e3"] * 4
-        text_colors = ["#F2F2F2"] * 11
+        slice_colors = ["#2d92df"] * 3 + ["#fb8c04"] * 2 + ["#eb04e3"] * 3
+        text_colors = ["#F2F2F2"] * 8
 
     elif cols == Winger:
         # color for the slices and text
@@ -577,8 +577,8 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
 
     elif cols == full_Back:
         # color for the slices and text
-        slice_colors = ["#2d92df"] * 4 + ["#fb8c04"] * 3 + ["#eb04e3"] * 3
-        text_colors = ["#F2F2F2"] * 10
+        slice_colors = ["#2d92df"] * 4 + ["#fb8c04"] * 5 + ["#eb04e3"] * 4
+        text_colors = ["#F2F2F2"] * 13
 
     elif cols == center_Back:
         # color for the slices and text
