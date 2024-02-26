@@ -527,8 +527,7 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
     # parameter list
     params = cols
 
-    playerDF = df.loc[(df.Player == playerName) & (df.Team == team) & (df['Comp'] == league) & (df['Season'] == season) &
-                      ((df['Minutes played'] >= minutes) | (df['Minutes played'] <= minutes_2))]
+    playerDF = df.loc[(df.Player == playerName) & (df.Team == team) & (df['Comp'] == league) & (df['Season'] == season)]
     
     position = playerDF['Position'].unique()
 
@@ -544,7 +543,8 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
     
     marketValue = marketValue[0]
 
-    df = df.loc[(df['League'] == leagueCompare) & (df['Minutes played'] >= 800) & (df['Season'] == season_Compare) & (df['Position'].str.contains(position))].reset_index(drop=True)
+    df = df.loc[(df['League'] == leagueCompare) & ((df['Minutes played'] >= minutes) | (df['Minutes played'] <= minutes_2)) &
+                (df['Season'] == season_Compare) & (df['Position'].str.contains(position))].reset_index(drop=True)
 
     player = playerDF[cols].reset_index()
     player = list(player.loc[0])
