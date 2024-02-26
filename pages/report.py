@@ -612,9 +612,15 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
                 print(f'\n{league}: ', df2[bestRole].values)
 
                 if role_Selected:
-                        scores = df2[role_Selected].values * number
+                        scores = df2[role_Selected].values
+                        df2 = data2[(data2['Comp'] == league) & ((data2['Role'] == role_Selected) | (data2['Role2'] == role_Selected)) &
+                                ((data2['Minutes played'] <= minutes) | (data2['Minutes played'] >= minutes_2))].reset_index(drop=True)
+                        print(f'\n{league}: ', df2[bestRole].values)
                 else:
-                        scores = df2[score_column].values * number
+                        scores = df2[score_column].values
+                        df2 = data2[(data2['Comp'] == league) & (data2['Main Pos'] == mainPos) &
+                                ((data2['Minutes played'] <= minutes) | (data2['Minutes played'] >= minutes_2))].reset_index(drop=True)
+                        print(f'\n{league}: ', df2[bestRole].values)
 
                 rolePercentile = math.floor(stats.percentileofscore(scores, roleValue))
                 print('\nPercentile Jogador: ', rolePercentile)
