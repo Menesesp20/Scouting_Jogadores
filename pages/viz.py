@@ -205,7 +205,7 @@ def bars(data, playerName, club, league, league_Compare, metrics, season, season
     #return plt.show()
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
-def barsAbility(df, playerName, team, season, league, league_Compare, season_Compare, number):
+def barsAbility(df, playerName, team, season, league, league_Compare, season_Compare, number, minutes, minutes_2):
 
     Creation = ['Visão de Jogo', 'Habilidade Criar Chances', 'Habilidade Passe Decisivo', 'Tomada de decisão']
 
@@ -232,7 +232,7 @@ def barsAbility(df, playerName, team, season, league, league_Compare, season_Com
     for i, metrics in enumerate(metrics_list):
         ax = axs[i]
         ax.set_facecolor('#181818')
-        bars(df, playerName, team, league, league_Compare, metrics, season, season_Compare, number, ax)
+        bars(df, playerName, team, league, league_Compare, metrics, season, season_Compare, number, minutes, minutes_2, ax)
 
     #fig = add_image(image='../Images/Players/' + league + '/' + club + '/' + playerName + '.png', fig=fig, left=-0.001, bottom=0.85, width=0.08, height=0.23)
 
