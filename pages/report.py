@@ -454,7 +454,7 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
                 #######################################################################################################################################
 
                 for x in range(len(params)):
-                        values.append(math.floor(stats.percentileofscore((df2[params[x]] * 0.93), player[x])))
+                        values.append(math.floor(stats.percentileofscore((df2[params[x]] * number), player[x])))
 
                 for n, i in enumerate(values):
                         if i == 100:
@@ -605,9 +605,9 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
                 print(f'\n{league}: ', df2[bestRole].values)
 
                 if role_Selected:
-                        scores = df2[role_Selected].values * 0.93
+                        scores = df2[role_Selected].values * number
                 else:
-                        scores = df2[score_column].values * 0.93
+                        scores = df2[score_column].values * number
 
                 rolePercentile = math.floor(stats.percentileofscore(scores, roleValue))
                 print('\nPercentile Jogador: ', rolePercentile)
