@@ -120,7 +120,7 @@ Forward = ['Goals', 'xG/90', 'Shots target %', 'Goal conversion, %',
            'Aerial duels %', 'Offensive duels/90', 'PAdj Interceptions', 'Aerial duels/90',]
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
-def bars(data, playerName, club, league, league_Compare, metrics, season, season_Compare, number, ax):
+def bars(data, playerName, club, league, league_Compare, metrics, season, season_Compare, number, minutes, minutes_2, ax):
 
     if type(season_Compare) != 'str':
             str(season_Compare)
@@ -140,7 +140,8 @@ def bars(data, playerName, club, league, league_Compare, metrics, season, season
     playerDF = data.loc[(data['Player'] == playerName) & (data['Team'] == club) & (data['Comp'] == league) & (data['Season'] == season)].reset_index(drop=True)
     position = playerDF['Main Pos'].unique()[0]
 
-    df = data.loc[(data['Season'] == season_Compare) & ((data['League'] == league_Compare) | (data['Player'] == playerName)) & (data['Minutes played'] >= 1200) & (data['Main Pos'] == position)].reset_index(drop=True)
+    df = data.loc[(data['Season'] == season_Compare) & ((data['League'] == league_Compare) | (data['Player'] == playerName)) &
+                  ((data['Minutes played'] >= minutes) | (data['Minutes played'] <= minutes_2)) & (data['Main Pos'] == position)].reset_index(drop=True)
     #fig.set_facecolor('#181818')
     #ax.set_facecolor('#181818')
 
@@ -439,7 +440,7 @@ def radar_chart_compare(df, player, player2, cols, team, season, league, league_
     return plt.show()
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
-def radar_chart(df, player, cols, team, season, league, leagueCompare, season_Compare, number, player2=None):
+def radar_chart(df, player, cols, team, season, league, leagueCompare, season_Compare, number, minutes, minutes_2, player2=None):
 
     if type(season_Compare) != 'str':
         str(season_Compare)
@@ -448,7 +449,8 @@ def radar_chart(df, player, cols, team, season, league, leagueCompare, season_Co
 
     if player2 == None:
         #Atribuição do jogador a colocar no gráfico
-        players = df.loc[(df['Player'] == player) & (df['Team'] == team) & (df['Comp'] == league) & (df['Season'] == season)].reset_index(drop=True)
+        players = df.loc[(df['Player'] == player) & (df['Team'] == team) & (df['Comp'] == league) & (df['Season'] == season) &
+                         ((df['Minutes played'] >= minutes) | (df['Minutes played'] <= minutes_2))].reset_index(drop=True)
 
         club = players.Team.unique()[0]
         if club == '0':
@@ -515,7 +517,7 @@ def radar_chart(df, player, cols, team, season, league, leagueCompare, season_Co
     return plt.show()
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
-def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season_Compare, number):
+def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season_Compare, number, minutes, minutes_2):
 
     if type(season_Compare) != 'str':
             str(season_Compare)
@@ -525,7 +527,8 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
     # parameter list
     params = cols
 
-    playerDF = df.loc[(df.Player == playerName) & (df.Team == team) & (df['Comp'] == league) & (df['Season'] == season)]
+    playerDF = df.loc[(df.Player == playerName) & (df.Team == team) & (df['Comp'] == league) & (df['Season'] == season) &
+                      ((df['Minutes played'] >= minutes) | (df['Minutes played'] <= minutes_2))]
     
     position = playerDF['Position'].unique()
 
@@ -583,8 +586,8 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
 
     elif cols == center_Back:
         # color for the slices and text
-        slice_colors = ["#2d92df"] * 3 + ["#fb8c04"] * 4 + ["#eb04e3"] * 7
-        text_colors = ["#F2F2F2"] * 14
+        slice_colors = ["#2d92df"] * 3 + ["#fb8c04"] * 3 + ["#eb04e3"] * 7
+        text_colors = ["#F2F2F2"] * 13
 
     elif cols == offensive_Midfield:
         # color for the slices and text
@@ -1100,6 +1103,12 @@ with st.form("select-buttons"):
     page_height_user = st.sidebar.selectbox(
     'Choose height value', list(range(10, 31)))
 
+    minutes_Lower = st.sidebar.selectbox(
+    'Set minimum minutes', list(range(450, 30000)))
+
+    minutes_Max = st.sidebar.selectbox(
+    'Set maximium minutes', list(range(450, 30000)))
+
     score_Adjusted = st.sidebar.selectbox(
                     'Has the score been already adjusted?', ['No', 'Yes'])
 
@@ -1143,7 +1152,7 @@ with st.form("select-buttons"):
 #col1, col2, col3, col4, col5, col6 = st.columns(6)
 
 if btn1:
-        figBars = barsAbility(wyscout, options_Player, options_Team, Season, league_Context, league_Compare_Context, Season_Compare_Context, number_Adjust)
+        figBars = barsAbility(wyscout, options_Player, options_Team, Season, league_Context, league_Compare_Context, Season_Compare_Context, number_Adjust, minutes_Lower, minutes_Max)
         st.pyplot(figBars)
 
 if btn2:
@@ -1153,7 +1162,7 @@ if btn2:
 
 if btn3:
 
-    figRadar = radar_chart(wyscout, options_Player, cols, options_Team, Season, league_Context, league_Compare_Context, Season_Compare_Context, number_Adjust)
+    figRadar = radar_chart(wyscout, options_Player, cols, options_Team, Season, league_Context, league_Compare_Context, Season_Compare_Context, number_Adjust, minutes_Lower, minutes_Max)
     
     st.pyplot(figRadar)
 
@@ -1164,7 +1173,7 @@ if btn4:
 
 if btn5:
 
-    figPercentile = PizzaChart(wyscout, cols, options_Player, options_Team, Season, league_Context, league_Compare_Context, Season_Compare_Context, number_Adjust)
+    figPercentile = PizzaChart(wyscout, cols, options_Player, options_Team, Season, league_Context, league_Compare_Context, Season_Compare_Context, number_Adjust, minutes_Lower, minutes_Max)
     
     st.pyplot(figPercentile)
 

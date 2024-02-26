@@ -39,7 +39,7 @@ def load_data(filePath):
 wyscout = load_data('./Data/wyscout.parquet')
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
-def traditionalReport(data, league, playerName, team, season, score_column, number, role_Selected=None, mode=None):
+def traditionalReport(data, league, playerName, team, season, score_column, number, minutes, minutes_2, role_Selected=None, mode=None):
         ############################################################################# PLAYER'S ABILITY PERCENTILE #####################################################################################################################################################################################################################################
 
         data['Habilidade Defensiva'] = data['Habilidade Defensiva'].apply(lambda x: math.floor(stats.percentileofscore(data['Habilidade Defensiva'], x)))
@@ -443,7 +443,8 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
                           'Visão de Jogo', 'Habilidade Criar Chances', 'Concentração', 'Habilidade Finalização', 'Habilidade Cabeceio',
                           'Habilidade Interceptação', 'Habilidade Desarme', 'Habilidade Aérea', 'Habilidade Defensiva']
                 
-                df2 = data2[(data2['Comp'] == league) & (data2['Main Pos'] == mainPos) & (data2['Minutes played'] >= 800)][params].reset_index(drop=True)
+                df2 = data2[(data2['Comp'] == league) & (data2['Main Pos'] == mainPos) &
+                            ((data2['Minutes played'] <= minutes) | (data2['Minutes played'] >= minutes_2))][params].reset_index(drop=True)
 
                 player = df[(df['Player'] == playerName) & (df['Team'] == team) & (df['Season'] == season)][params].reset_index(drop=True)
                 player = list(player.loc[0])
@@ -599,7 +600,8 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
                 roleValue = roleValue * number
                 print('\nScore Jogador: ', roleValue)
 
-                df2 = data2[(data2['Comp'] == league) & (data2['Main Pos'] == mainPos) & (data2['Minutes played'] >= 800)].reset_index(drop=True)
+                df2 = data2[(data2['Comp'] == league) & (data2['Main Pos'] == mainPos) &
+                            ((data2['Minutes played'] <= minutes) | (data2['Minutes played'] >= minutes_2))].reset_index(drop=True)
                 print(f'\n{league}: ', df2[bestRole].values)
 
                 if role_Selected:
@@ -739,12 +741,18 @@ with st.form("select-buttons"):
                 number_Adjust = 1
                 score_column = 'AdjustedScore'
 
+        minutes_Lower = st.sidebar.selectbox(
+        'Set minimum minutes', list(range(450, 30000)))
+
+        minutes_Max = st.sidebar.selectbox(
+        'Set maximium minutes', list(range(450, 30000)))
+
         btn1 = st.form_submit_button(label='Player Report')
 
 #col1, col2, col3, col4, col5, col6 = st.columns(6)
 
 if btn1:
-        figTraditionReport = traditionalReport(wyscout, league, options_Player, options_Team, Season, score_column, number_Adjust,  roles_List)
+        figTraditionReport = traditionalReport(wyscout, league, options_Player, options_Team, Season, score_column, number_Adjust, minutes_Lower, minutes_Max, roles_List)
 
         st.text('This is a test version to combine the data report (strengths and to improve) with the traditional scout report with tactical aspects of the player (On and Off ball momentum and physical).')
 
