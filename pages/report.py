@@ -443,8 +443,12 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
                           'Visão de Jogo', 'Habilidade Criar Chances', 'Concentração', 'Habilidade Finalização', 'Habilidade Cabeceio',
                           'Habilidade Interceptação', 'Habilidade Desarme', 'Habilidade Aérea', 'Habilidade Defensiva']
                 
-                df2 = data2[(data2['Comp'] == league) & (data2['Main Pos'] == mainPos) &
+                if role_Selected != None:
+                        df2 = data2[(data2['Comp'] == league) & ((data2['Role'] == role_Selected) | (data2['Role2'] == role_Selected)) &
                             ((data2['Minutes played'] <= minutes) | (data2['Minutes played'] >= minutes_2))][params].reset_index(drop=True)
+                else:
+                        df2 = data2[(data2['Comp'] == league) & (data2['Main Pos'] == mainPos) &
+                                ((data2['Minutes played'] <= minutes) | (data2['Minutes played'] >= minutes_2))][params].reset_index(drop=True)
 
                 player = df[(df['Player'] == playerName) & (df['Team'] == team) & (df['Season'] == season)][params].reset_index(drop=True)
                 player = list(player.loc[0])
@@ -596,7 +600,10 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
                 print('Posição: ', mainPos)
                 bestRole = df['Role'].values[0]
                 print('\nRole Jogador: ', bestRole)
-                roleValue = round(df[score_column], 2)
+                if role_Selected:
+                        roleValue = round(df[role_Selected], 2)
+                else:
+                        roleValue = round(df[score_column], 2)
                 roleValue = roleValue * number
                 print('\nScore Jogador: ', roleValue)
 
