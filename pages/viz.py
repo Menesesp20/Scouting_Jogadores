@@ -1104,10 +1104,10 @@ with st.form("select-buttons"):
     'Choose height value', list(range(10, 31)))
 
     minutes_Lower = st.sidebar.selectbox(
-    'Set minimum minutes', list(range(450, 30000)))
+    'Set minimum minutes', list(range(0, 30000)))
 
     minutes_Max = st.sidebar.selectbox(
-    'Set maximium minutes', list(range(450, 30000)))
+    'Set maximium minutes', list(range(0, 30000)))
 
     score_Adjusted = st.sidebar.selectbox(
                     'Has the score been already adjusted?', ['No', 'Yes'])

@@ -755,10 +755,10 @@ with st.form("select-buttons"):
                 score_column = 'AdjustedScore'
 
         minutes_Lower = st.sidebar.selectbox(
-        'Set minimum minutes', list(range(450, 30000)))
+        'Set minimum minutes', list(range(0, 30000)))
 
         minutes_Max = st.sidebar.selectbox(
-        'Set maximium minutes', list(range(450, 30000)))
+        'Set maximium minutes', list(range(0, 30000)))
 
         btn1 = st.form_submit_button(label='Player Report')
 
