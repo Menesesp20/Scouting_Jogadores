@@ -297,7 +297,7 @@ def traditionalReport(data, league, playerName, team, league_Player, season, sco
 
         data2 = createSkillProfiles(data)
 
-        def report(playerName, league, team, mode=None):
+        def report(playerName, league, team, league_Player, mode=None):
                 
                 if mode == None:
                         color = '#E8E8E8'
@@ -711,7 +711,7 @@ def traditionalReport(data, league, playerName, team, league_Player, season, sco
 
                 return plt.show()
 
-        return report(playerName, league, team)
+        return report(playerName, league, team, league_Player)
 
 with st.form("select-buttons"):
 
