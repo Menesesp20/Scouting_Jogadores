@@ -39,7 +39,7 @@ def load_data(filePath):
 wyscout = load_data('./Data/wyscout.parquet')
 
 st.cache_data(ttl=datetime.timedelta(hours=1), max_entries=1000)
-def traditionalReport(data, league, playerName, team, season, score_column, number, minutes, minutes_2, role_Selected=None, mode=None):
+def traditionalReport(data, league, playerName, team, league_Player, season, score_column, number, minutes, minutes_2, role_Selected=None, mode=None):
         ############################################################################# PLAYER'S ABILITY PERCENTILE #####################################################################################################################################################################################################################################
 
         data['Habilidade Defensiva'] = data['Habilidade Defensiva'].apply(lambda x: math.floor(stats.percentileofscore(data['Habilidade Defensiva'], x)))
@@ -306,7 +306,10 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
                         color = '#181818'
                         background = '#E8E8E8'
                         
-                df = data2.loc[(data2['Player'] == playerName) & (data2['Team'] == team) & (data2['Season'] == season)].reset_index()
+                df = data2.loc[(data2['Player'] == playerName) &
+                               (data2['Team'] == team) &
+                               (data2['League'] == league_Player) &
+                               (data2['Season'] == season)].reset_index()
                 
                 country = df['Birth country'].unique()[0]
                 if country == '0':
@@ -450,7 +453,9 @@ def traditionalReport(data, league, playerName, team, season, score_column, numb
                         df2 = data2[(data2['Comp'] == league) & (data2['Main Pos'] == mainPos) &
                                 ((data2['Minutes played'] <= minutes) | (data2['Minutes played'] >= minutes_2))][params].reset_index(drop=True)
 
-                player = df[(df['Player'] == playerName) & (df['Team'] == team) & (df['Season'] == season)][params].reset_index(drop=True)
+                player = df[(df['Player'] == playerName) & (df['Team'] == team) &
+                            (df['League'] == league_Player) & (df['Season'] == season)][params].reset_index(drop=True)
+                
                 player = list(player.loc[0])
                 player = [value * number for value in player]
                 #player = player[1:]
@@ -718,6 +723,10 @@ with st.form("select-buttons"):
                 'Select the players team',
                 sorted(wyscout[wyscout['Player'] == options_Player]['Team'].unique()))
 
+        options_League = st.sidebar.selectbox(
+                'Select the players league',
+                sorted(wyscout[wyscout['Player'] == options_Player]['League'].unique()))
+
         leagues_List = wyscout.Comp.unique().tolist()
         leagues_List.insert(0, 'Player League')
 
@@ -729,7 +738,8 @@ with st.form("select-buttons"):
         else:
                 league = league_Context
 
-        Season_List = wyscout.loc[(wyscout['Team'] == options_Team) & (wyscout['Player'] == options_Player)]['Season'].unique()
+        Season_List = wyscout.loc[(wyscout['Team'] == options_Team) & (wyscout['League'] == options_League) &
+                                  (wyscout['Player'] == options_Player)]['Season'].unique()
 
         Season = st.sidebar.selectbox(
         'Choose Season you want analyse', Season_List)
@@ -765,7 +775,7 @@ with st.form("select-buttons"):
 #col1, col2, col3, col4, col5, col6 = st.columns(6)
 
 if btn1:
-        figTraditionReport = traditionalReport(wyscout, league, options_Player, options_Team, Season, score_column, number_Adjust, minutes_Lower, minutes_Max, roles_List)
+        figTraditionReport = traditionalReport(wyscout, league, options_Player, options_Team, options_League, Season, score_column, number_Adjust, minutes_Lower, minutes_Max, roles_List)
 
         st.text('This is a test version to combine the data report (strengths and to improve) with the traditional scout report with tactical aspects of the player (On and Off ball momentum and physical).')
 
