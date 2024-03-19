@@ -310,6 +310,7 @@ def traditionalReport(data, league, playerName, team, league_Player, season, sco
                                (data2['Team'] == team) &
                                (data2['League'] == league_Player) &
                                (data2['Season'] == season)].reset_index()
+                print(df)
                 
                 country = df['Birth country'].unique()[0]
                 if country == '0':
