@@ -166,7 +166,7 @@ def bars(data, playerName, club, league, league_Compare, metrics, season, season
     for i in range(len(metrics)):
         ax.barh(x[i], max_values[i], color='#1e1e1e')
         current_value.append(player[i])
-        ax.barh(x[i], current_value[i], color='#fcac14')
+        ax.barh(x[i], current_value[i], color='#fcdc05')
         ax.text(current_value[i] + 2, x[i], str(int(current_value[i])), ha='left', va='center', fontsize=17, color='#E8E8E8')
 
     # Add labels and title
