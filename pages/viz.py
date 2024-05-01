@@ -493,7 +493,7 @@ def radar_chart(df, player, cols, team, season, league, leagueCompare, season_Co
 
         #Criação do radar chart
         fig, ax = plt.subplots(figsize=(12,10))
-        radar = Radar(background_color="#181818", patch_color="#181818", range_color="#e9edf6", label_color="#181818", label_fontsize=10, range_fontsize=10)
+        radar = Radar(background_color="#181818", patch_color="#181818", range_color="#4d4d4d", label_color="#181818", label_fontsize=10, range_fontsize=10)
         fig, ax = radar.plot_radar(ranges=ranges, 
                                     params=cols, 
                                     values=values, 
