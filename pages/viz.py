@@ -725,21 +725,21 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
              x = 0.41, y = 0.988,
              color='#181818',
              fontweight='bold', ha='center',
-             fontsize=16);
+             fontsize=14);
 
     # Possession
     fig_text(s =  'Possession',
              x = 0.535, y = 0.988,
              color='#181818',
              fontweight='bold', ha='center',
-             fontsize=16);
+             fontsize=14);
 
     # Defending
     fig_text(s =  'Defending',
              x = 0.665, y = 0.988,
              color='#181818',
              fontweight='bold', ha='center',
-             fontsize=16);
+             fontsize=14);
 
     # add rectangles
     fig.patches.extend([
