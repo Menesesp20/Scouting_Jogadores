@@ -164,41 +164,41 @@ def bars(data, playerName, club, league, league_Compare, metrics, season, season
     
     # Set the maximum limit of each bar using the max_values list
     for i in range(len(metrics)):
-        ax.barh(x[i], max_values[i], color='#1e1e1e')
+        ax.barh(x[i], max_values[i], color='#e9eaea')
         current_value.append(player[i])
-        ax.barh(x[i], current_value[i], color='#fcdc05')
+        ax.barh(x[i], current_value[i], color='#181818')
         ax.text(current_value[i] + 2, x[i], str(int(current_value[i])), ha='left', va='center', fontsize=17, color='#E8E8E8')
 
     # Add labels and title
     if metrics == Creation:
         ax_text(x=50, y=4, s='Criação', va='center', ha='center',
-                size=25, color='#E8E8E8', ax=ax)
+                size=25, color='#181818', ax=ax)
         
     elif metrics == WithOut_Ball:
         ax_text(x=50, y=5, s='Sem Bola', va='center', ha='center',
-                size=25, color='#E8E8E8', ax=ax)
+                size=25, color='#181818', ax=ax)
    
     elif metrics == finalThird:
         ax_text(x=50, y=4, s='Meio Campo Ofensivo', va='center', ha='center',
-                size=25, color='#E8E8E8', ax=ax)
+                size=25, color='#181818', ax=ax)
    
     elif metrics == buildUp:
         ax_text(x=50, y=4, s='Construção', va='center', ha='center',
-                size=25, color='#E8E8E8', ax=ax)
+                size=25, color='#181818', ax=ax)
 
     elif metrics == setPieces:
         ax_text(x=50, y=4, s='Bola Parada', va='center', ha='center',
-                size=25, color='#E8E8E8', ax=ax)
+                size=25, color='#181818', ax=ax)
 
-    ax.tick_params(axis='both', colors='#E8E8E8')
+    ax.tick_params(axis='both', colors='#181818')
     for tick in ax.get_xticklabels():
-        tick.set_color('#E8E8E8')
+        tick.set_color('#181818')
     for tick in ax.get_yticklabels():
-        tick.set_color('#E8E8E8')
+        tick.set_color('#181818')
 
-    ax.spines['bottom'].set_color('#E8E8E8')
+    ax.spines['bottom'].set_color('#181818')
     ax.spines['top'].set_visible(False)
-    ax.spines['left'].set_color('#E8E8E8')
+    ax.spines['left'].set_color('#181818')
     ax.spines['right'].set_visible(False)
  
     # Show chart 
@@ -226,12 +226,12 @@ def barsAbility(df, playerName, team, season, league, league_Compare, season_Com
     
     fig, axs = plt.subplots(2, 2, figsize=(20, 12))
     fig.subplots_adjust(hspace=0.3, wspace=0.8)
-    fig.set_facecolor('#181818')
+    fig.set_facecolor('#e9eaea')
     axs = axs.ravel()
 
     for i, metrics in enumerate(metrics_list):
         ax = axs[i]
-        ax.set_facecolor('#181818')
+        ax.set_facecolor('#e9eaea')
         bars(df, playerName, team, league, league_Compare, metrics, season, season_Compare, number, minutes, minutes_2, ax)
 
     #fig = add_image(image='../Images/Players/' + league + '/' + club + '/' + playerName + '.png', fig=fig, left=-0.001, bottom=0.85, width=0.08, height=0.23)
@@ -406,9 +406,9 @@ def radar_chart_compare(df, player, player2, cols, team, season, league, league_
         subtitle_fontsize = 15,
 
         subtitle_name=club,
-        subtitle_color='#E8E8E8',
+        subtitle_color='#181818',
         subtitle_name_2=club2,
-        subtitle_color_2='#E8E8E8',
+        subtitle_color_2='#181818',
 
     )
 
@@ -425,17 +425,17 @@ def radar_chart_compare(df, player, player2, cols, team, season, league, league_
 
     #Criação do radar chart
     fig, ax = plt.subplots(figsize=(18,15), dpi=500)
-    radar = Radar(background_color="#E8E8E8", patch_color="#181818", range_color="#E8E8E8", label_color="#E8E8E8", label_fontsize=11, range_fontsize=11)
+    radar = Radar(background_color="#181818", patch_color="#181818", range_color="#181818", label_color="#181818", label_fontsize=11, range_fontsize=11)
     fig, ax = radar.plot_radar(ranges=ranges, 
                                 params=cols, 
                                 values=values, 
                                 radar_color=['#548135','#fb8c04'], 
                                 figax=(fig, ax),
                                 title=title,
-                                endnote=endnote, end_size=0, end_color="#1b1b1b",
+                                endnote=endnote, end_size=0, end_color="#e9eaea",
                                 compare=True)
 
-    fig.set_facecolor('#181818')
+    fig.set_facecolor('#e9eaea')
 
     return plt.show()
 
@@ -469,7 +469,7 @@ def radar_chart(df, player, cols, team, season, league, leagueCompare, season_Co
 
         ranges = [(rango[col].min(), rango[col].max()) for col in cols]
 
-        color = ['#E8E8E8','#fb8c04']
+        color = ['#181818','#fb8c04']
         #Atribuição dos valores aos titulos e respetivos tamanhos e cores
         title = dict(
             title_name = player,
@@ -478,7 +478,7 @@ def radar_chart(df, player, cols, team, season, league, leagueCompare, season_Co
             subtitle_fontsize = 10,
 
             subtitle_name=club,
-            subtitle_color='#E8E8E8',
+            subtitle_color='#181818',
         )
 
         #team_player = df[col_name_team].to_list()
@@ -493,7 +493,7 @@ def radar_chart(df, player, cols, team, season, league, leagueCompare, season_Co
 
         #Criação do radar chart
         fig, ax = plt.subplots(figsize=(12,10))
-        radar = Radar(background_color="#E8E8E8", patch_color="#181818", range_color="#E8E8E8", label_color="#E8E8E8", label_fontsize=10, range_fontsize=10)
+        radar = Radar(background_color="#181818", patch_color="#181818", range_color="#181818", label_color="#181818", label_fontsize=10, range_fontsize=10)
         fig, ax = radar.plot_radar(ranges=ranges, 
                                     params=cols, 
                                     values=values, 
@@ -503,7 +503,7 @@ def radar_chart(df, player, cols, team, season, league, leagueCompare, season_Co
                                     title=title,
                                     endnote=endnote)
 
-        fig.set_facecolor('#181818')
+        fig.set_facecolor('#e9eaea')
         # Ensure the 'Images' folder exists
         if not os.path.exists(f'Images/Recruitment/{player}'):
             os.makedirs(f'Images/Recruitment/{player}')
@@ -562,45 +562,45 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
     if cols == Forward:
         # color for the slices and text
         slice_colors = ["#2d92df"] * 3 + ["#fb8c04"] * 4 + ["#eb04e3"] * 4
-        text_colors = ["#F2F2F2"] * 11
+        text_colors = ["#181818"] * 11
 
     elif cols == Winger:
         # color for the slices and text
         slice_colors = ["#2d92df"] * 3 + ["#fb8c04"] * 7 + ["#eb04e3"] * 3
-        text_colors = ["#F2F2F2"] * 13
+        text_colors = ["#181818"] * 13
 
     elif cols == defensive_Midfield:
         # color for the slices and text
         slice_colors = ["#2d92df"] * 3 + ["#fb8c04"] * 4 + ["#eb04e3"] * 6
-        text_colors = ["#F2F2F2"] * 13
+        text_colors = ["#181818"] * 13
         
     elif cols == Midfield:
         # color for the slices and text
         slice_colors = ["#2d92df"] * 3 + ["#fb8c04"] * 8 + ["#eb04e3"] * 3
-        text_colors = ["#F2F2F2"] * 14
+        text_colors = ["#181818"] * 14
 
     elif cols == full_Back:
         # color for the slices and text
         slice_colors = ["#2d92df"] * 4 + ["#fb8c04"] * 5 + ["#eb04e3"] * 4
-        text_colors = ["#F2F2F2"] * 13
+        text_colors = ["#181818"] * 13
 
     elif cols == center_Back:
         # color for the slices and text
         slice_colors = ["#2d92df"] * 3 + ["#fb8c04"] * 3 + ["#eb04e3"] * 7
-        text_colors = ["#F2F2F2"] * 13
+        text_colors = ["#181818"] * 13
 
     elif cols == offensive_Midfield:
         # color for the slices and text
         slice_colors = ["#2d92df"] * 3 + ["#fb8c04"] * 8 + ["#eb04e3"] * 4
-        text_colors = ["#F2F2F2"] * 15
+        text_colors = ["#181818"] * 15
 
     # instantiate PyPizza class
     baker = PyPizza(
         params=params,                  # list of parameters
-        background_color="#1b1b1b",     # background color
-        straight_line_color="#000000",  # color for straight lines
+        background_color="#e9eaea",     # background color
+        straight_line_color="#ffffff",  # color for straight lines
         straight_line_lw=1,             # linewidth for straight lines
-        last_circle_color="#000000",    # color for last line
+        last_circle_color="#ffffff",    # color for last line
         last_circle_lw=1,               # linewidth of last circle
         other_circle_lw=0,              # linewidth for other circles
         inner_circle_size=20            # size of inner circle
@@ -616,17 +616,17 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
         value_bck_colors=slice_colors,   # color for the blank spaces
         blank_alpha=0.4,                 # alpha for blank-space colors
         kwargs_slices=dict(
-            edgecolor="#000000", zorder=2, linewidth=1
+            edgecolor="#ffffff", zorder=2, linewidth=1
         ),                               # values to be used when plotting slices
         kwargs_params=dict(
-            color="#F2F2F2", fontsize=8,
+            color="#181818", fontsize=8,
             va="center"
         ),                               # values to be used when adding parameter labels
         kwargs_values=dict(
-            color="#F2F2F2", fontsize=8,
+            color="#181818", fontsize=8,
             zorder=3,
             bbox=dict(
-                edgecolor="#000000", facecolor="cornflowerblue",
+                edgecolor="#ffffff", facecolor="cornflowerblue",
                 boxstyle="round,pad=0.2", lw=1
             )
         )                                # values to be used when adding parameter-values labels
@@ -636,7 +636,7 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
 
         fig_text(s =  'Forward Template',
              x = 0.253, y = 0.035,
-             color='#F2F2F2',
+             color='#181818',
              fontweight='bold', ha='center',
              fontsize=6)
 
@@ -644,7 +644,7 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
 
         fig_text(s =  'Winger Template',
              x = 0.253, y = 0.035,
-             color='#F2F2F2',
+             color='#181818',
              fontweight='bold', ha='center',
              fontsize=6)
 
@@ -652,7 +652,7 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
 
         fig_text(s =  'Defensive Midfield Template',
              x = 0.253, y = 0.035,
-             color='#F2F2F2',
+             color='#181818',
              fontweight='bold', ha='center',
              fontsize=6)
 
@@ -660,7 +660,7 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
 
         fig_text(s =  'Midfield Template',
              x = 0.253, y = 0.035,
-             color='#F2F2F2',
+             color='#181818',
              fontweight='bold', ha='center',
              fontsize=6)
 
@@ -668,14 +668,14 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
 
         fig_text(s =  'Full Back Template',
              x = 0.253, y = 0.035,
-             color='#F2F2F2',
+             color='#181818',
              fontweight='bold', ha='center',
              fontsize=6)
     elif cols == center_Back:
 
         fig_text(s =  'Center Back Template',
              x = 0.253, y = 0.035,
-             color='#F2F2F2',
+             color='#181818',
              fontweight='bold', ha='center',
              fontsize=6)
 
@@ -683,7 +683,7 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
 
         fig_text(s =  'Offensive Midfield Template',
              x = 0.253, y = 0.035,
-             color='#F2F2F2',
+             color='#181818',
              fontweight='bold', ha='center',
              fontsize=6)
 
@@ -691,19 +691,19 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
 
     fig_text(s =  playerName,
              x = 0.5, y = 1.12,
-             color='#F2F2F2',
+             color='#181818',
              fontweight='bold', ha='center',
              fontsize=40);
 
     fig_text(s =  'Percentile Rank | ' + league + ' | Pizza Chart | ' + str(season),
             x = 0.5, y = 1.03,
-            color='#F2F2F2',
+            color='#181818',
             fontweight='bold', ha='center',
             fontsize=12);
 
     #fig_text(s =  str(marketValue),
     #         x = 0.5, y = 1.02,
-    #         color='#F2F2F2',
+    #         color='#181818',
     #         fontweight='bold', ha='center',
     #         fontsize=18);
 
@@ -716,28 +716,28 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
     # CREDITS
     fig_text(s =  f"{CREDIT_1}\n{CREDIT_2}\n{CREDIT_3}",
              x = 0.35, y = 0.02,
-             color='#F2F2F2',
+             color='#181818',
              fontweight='bold', ha='center',
              fontsize=8);
 
     # Attacking
     fig_text(s =  'Attacking',
              x = 0.41, y = 0.988,
-             color='#F2F2F2',
+             color='#181818',
              fontweight='bold', ha='center',
              fontsize=16);
 
     # Possession
     fig_text(s =  'Possession',
              x = 0.535, y = 0.988,
-             color='#F2F2F2',
+             color='#181818',
              fontweight='bold', ha='center',
              fontsize=16);
 
     # Defending
     fig_text(s =  'Defending',
              x = 0.665, y = 0.988,
-             color='#F2F2F2',
+             color='#181818',
              fontweight='bold', ha='center',
              fontsize=16);
 
@@ -770,17 +770,17 @@ def score_OverTime(df, club, playerName, league, number, colPercentile):
     fig, ax = plt.subplots(figsize=(8, 6))
 
     # Set color background outside the graph
-    fig.set_facecolor('#181818')
+    fig.set_facecolor('#e9eaea')
 
     # Set color background inside the graph
-    ax.set_facecolor('#181818')
+    ax.set_facecolor('#e9eaea')
 
-    ax.tick_params(axis='x', colors='white', labelsize=12)
-    ax.tick_params(axis='y', colors='white', labelsize=12)
+    ax.tick_params(axis='x', colors='#181818', labelsize=12)
+    ax.tick_params(axis='y', colors='#181818', labelsize=12)
 
-    ax.spines['bottom'].set_color('white')
+    ax.spines['bottom'].set_color('#181818')
     ax.spines['top'].set_visible(False)
-    ax.spines['left'].set_color('white')
+    ax.spines['left'].set_color('#181818')
     ax.spines['right'].set_visible(False)
 
     league = re.split(' \d{4}', league)[0]
@@ -811,13 +811,13 @@ def score_OverTime(df, club, playerName, league, number, colPercentile):
 
     # Annotate each point with its score value and minutes played
     for i, (score, minutes) in enumerate(zip(y, minutes_played)):
-        ax.annotate(score, (x[i], y[i]), fontproperties=custom_font, textcoords="offset points", xytext=(0,10), ha='center', color='white')
-        ax.annotate(f'{minutes} min', (x[i], y[i]), fontproperties=custom_font, textcoords="offset points", xytext=(0,-15), ha='center', color='white')
+        ax.annotate(score, (x[i], y[i]), fontproperties=custom_font, textcoords="offset points", xytext=(0,10), ha='center', color='#181818')
+        ax.annotate(f'{minutes} min', (x[i], y[i]), fontproperties=custom_font, textcoords="offset points", xytext=(0,-15), ha='center', color='#181818')
 
-    plt.title(f'{playerName} {team}\nPercentile Over Time', c='white', fontproperties=custom_font, fontsize=24, y=1.09)
+    plt.title(f'{playerName} {team}\nPercentile Over Time', c='#181818', fontproperties=custom_font, fontsize=24, y=1.09)
 
-    plt.ylabel('TOF VALUE', fontproperties=custom_font, color='white', size=11)
-    plt.xlabel('SEASON', fontproperties=custom_font, color='white', size=11)
+    plt.ylabel('TOF VALUE', fontproperties=custom_font, color='#181818', size=11)
+    plt.xlabel('SEASON', fontproperties=custom_font, color='#181818', size=11)
 
     fig_Player = add_image(image=f'Images/player_Icon.png', fig=fig, left=0.105, bottom=0.92, width=0.14, height=0.18)
     fig_Club = add_image(image=f'Images/Clubs/Brasileirao/Ceará.png', fig=fig, left=0.79, bottom=0.95, width=0.09, height=0.09)
