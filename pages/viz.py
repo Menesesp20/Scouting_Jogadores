@@ -1212,7 +1212,7 @@ def createReportPDF(playerName, leagueName, uploaded_files, page_width=20, page_
 
         def draw_background(canvas, doc):
             canvas.saveState()
-            canvas.setFillColor(colors.HexColor("#181818"))
+            canvas.setFillColor(colors.HexColor("#e9eaea"))
             canvas.rect(0, 0, inch_to_px(page_width), inch_to_px(page_height), fill=True, stroke=False)
             canvas.restoreState()
 
