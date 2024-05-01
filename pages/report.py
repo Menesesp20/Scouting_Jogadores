@@ -698,7 +698,7 @@ def traditionalReport(data, league, playerName, team, league_Player, season, sco
 
                 fig_Player = add_image(image=f'Images/player_Icon.png', fig=fig, left=0.1, bottom=1.17, width=0.11, height=0.14)
                 fig = add_image(image='./Images/Country/' + country + '.png', fig=fig, left=0.185, bottom=1.2, width=0.07, height=0.06)
-                fig_DIMAS = add_image(image='./Images/DIMAS - Extenso - Fundo transparente.png', fig=fig, left=0.68, bottom=1.3, width=0.14, height=0.14)
+                fig_DIMAS = add_image(image='./Images/DIMAS - Extenso - Fundo transparente.png', fig=fig, left=0.64, bottom=1.3, width=0.14, height=0.14)
 
                 # Ensure the 'Images' folder exists
                 if not os.path.exists(f'Images/Recruitment/{playerName}'):
