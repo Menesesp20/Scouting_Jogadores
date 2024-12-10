@@ -527,7 +527,7 @@ def PizzaChart(df, cols, playerName, team, season, league, leagueCompare, season
     # parameter list
     params = cols
 
-    playerDF = df.loc[(df.Player == playerName) & (df.Team == team) & (df['Comp'] == league) & (df['Season'] == season)]
+    playerDF = df.loc[(df['Player'] == playerName) & (df['Team'] == team) & (df['Comp'] == league) & (df['Season'] == season)]
     
     position = playerDF['Position'].unique()
 
@@ -787,8 +787,7 @@ def score_OverTime(df, club, playerName, league, number, colPercentile):
 
     # Filter the DataFrame
     player = df[
-        (df['Player'] == playerName) & 
-        (df['Team'] == club)
+        (df['Player'] == playerName)
     ].sort_values('Season', ascending=True).reset_index(drop=True)
 
     team = player['Team'].unique()[0]
